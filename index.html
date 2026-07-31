@@ -4,25 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>【宴芸】脸与心孰软</title>
+    
+    <!-- 汇文明朝体 -->
+    <link rel="stylesheet" href="https://cn-font.claude-code-best.win/packages/hwmct/dist/汇文明朝体/result.css">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* 去掉点击蓝色高亮 */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             min-height: 100vh;
             background: #F5F0E8;
+            background-image: url('beijingtu.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: '汇文明朝体', 'Noto Serif SC', 'SimSun', serif;
+            color: #3D3D3D;
+            line-height: 2;
             overflow-x: hidden;
-            position: relative;
             cursor: pointer;
             -webkit-touch-callout: none;
             user-select: none;
         }
 
-        /* 点击水波纹效果 - 小尺寸，不规则 */
+        /* 内容容器 - 半透明背景让文字可读 */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            background: rgba(245, 240, 232, 0.85);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 点击水波纹效果 */
         .ripple {
             position: fixed;
             width: 60px;
@@ -54,7 +74,7 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            padding: 40px 20px;
+            padding: 40px 20px 20px;
             position: relative;
         }
 
@@ -86,7 +106,7 @@
             left: 0;
         }
 
-        /* 水波纹播放器 - 变小 */
+        /* 水波纹播放器 */
         .player {
             position: relative;
             width: 50px;
@@ -112,7 +132,7 @@
             transform: scale(1.05);
         }
 
-        /* 涟漪效果 - 多层同心圆，慢慢放大 */
+        /* 涟漪效果 */
         .ripple-ring {
             position: absolute;
             border-radius: 50%;
@@ -198,87 +218,304 @@
         /* 音乐信息 */
         .music-info {
             text-align: center;
-            margin-top: 10px;
+            margin-bottom: 40px;
             font-size: 12px;
             color: #6f8d76;
-            font-family: "SimSun", "宋体", serif;
             opacity: 0.8;
         }
 
-        /* 示例文字区域 */
-        .content {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            font-family: "SimSun", "宋体", serif;
-            line-height: 2;
-            color: #3D3D3D;
-            font-size: 16px;
+        /* 分割线 */
+        .divider {
+            background-image: url('fengexian.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 80px;
+            margin: 30px 0;
+            opacity: 0.7;
         }
 
-        .content h1 {
+        /* 标题区域 */
+        .header {
             text-align: center;
-            font-size: 24px;
-            margin-bottom: 10px;
+            padding: 20px 0 40px;
+        }
+
+        .header h1 {
+            font-size: 28px;
             color: #3D3D3D;
             font-weight: normal;
+            margin-bottom: 10px;
+            letter-spacing: 4px;
         }
 
-        .content .subtitle {
-            text-align: center;
+        .header .subtitle {
             font-size: 14px;
             color: #6f8d76;
-            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        /* 文章内容 */
+        .content {
+            font-size: 16px;
+            text-align: justify;
         }
 
         .content p {
             text-indent: 2em;
-            margin-bottom: 1em;
+            margin-bottom: 1.2em;
+        }
+
+        /* 章节标题 */
+        .chapter-title {
+            text-align: center;
+            font-size: 14px;
+            color: #6f8d76;
+            margin: 40px 0 20px;
+            letter-spacing: 2px;
+        }
+
+        /* 前记 */
+        .preface {
+            background: rgba(111, 141, 118, 0.08);
+            border-left: 3px solid #6f8d76;
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 14px;
+            color: #5a5a5a;
+            line-height: 1.8;
+        }
+
+        .preface-title {
+            font-size: 12px;
+            color: #6f8d76;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* 传讯符 */
+        .message {
+            background: rgba(200, 180, 140, 0.15);
+            border: 1px solid rgba(200, 180, 140, 0.3);
+            padding: 25px;
+            margin: 30px 20px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .message::before {
+            content: '传讯符';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: rgba(245, 240, 232, 0.9);
+            padding: 0 10px;
+            font-size: 12px;
+            color: #C45C5C;
+            letter-spacing: 2px;
+        }
+
+        .message-content {
+            color: #4a4a4a;
+        }
+
+        .message-sender {
+            text-align: right;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #6f8d76;
+        }
+
+        /* 后日谈 */
+        .epilogue {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(111, 141, 118, 0.3);
+        }
+
+        .epilogue-title {
+            text-align: center;
+            font-size: 16px;
+            color: #6f8d76;
+            margin-bottom: 30px;
+            letter-spacing: 4px;
+        }
+
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 60px 0 30px;
+            font-size: 12px;
+            color: #999;
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
 
-    <!-- 播放器 -->
-    <div class="player-container">
-        <div class="decoration-line left"></div>
-        
-        <div class="player" id="player" onclick="toggleMusic(event)">
-            <div class="ripple-ring"></div>
-            <div class="ripple-ring"></div>
-            <div class="ripple-ring"></div>
-            <div class="player-circle">
-                <div class="play-icon"></div>
-                <div class="pause-icon"></div>
+    <div class="container">
+
+        <!-- 播放器 -->
+        <div class="player-container">
+            <div class="decoration-line left"></div>
+            
+            <div class="player" id="player" onclick="toggleMusic(event)">
+                <div class="ripple-ring"></div>
+                <div class="ripple-ring"></div>
+                <div class="ripple-ring"></div>
+                <div class="player-circle">
+                    <div class="play-icon"></div>
+                    <div class="pause-icon"></div>
+                </div>
             </div>
+            
+            <div class="decoration-line right"></div>
         </div>
         
-        <div class="decoration-line right"></div>
-    </div>
-    
-    <div class="music-info">华年（二胡版）</div>
+        <div class="music-info">华年（二胡版）</div>
 
-    <!-- 音频 -->
-    <audio id="music" src="华年(二胡版).mp3" preload="metadata"></audio>
+        <!-- 音频 -->
+        <audio id="music" src="华年(二胡版).mp3" preload="metadata"></audio>
 
-    <!-- 示例内容 -->
-    <div class="content">
-        <h1>【宴芸】脸与心孰软</h1>
-        <div class="subtitle">记一次失败的教育</div>
-        <p>家长教育小孩，心软是大忌。但……不是我心软，是他脸软。</p>
-        <p>那一年，莫芸刚认识容聿不久。对于一个在青云宗外门活得如一株背景板竹子的人来说，容聿的出现，不亚于竹间飞入朱鸿鸟，乏善可陈的日子变得鲜活起来。</p>
+        <!-- 标题 -->
+        <div class="header">
+            <h1>【宴芸】脸与心孰软</h1>
+            <div class="subtitle">记一次失败的教育</div>
+        </div>
+
+        <!-- 前记 -->
+        <div class="preface">
+            <div class="preface-title">前记</div>
+            <p style="text-indent: 0;">家长教育小孩，心软是大忌。但……不是我心软，是他脸软。</p>
+        </div>
+
+        <!-- 分割线 -->
+        <div class="divider"></div>
+
+        <!-- 正文 -->
+        <div class="content">
+            <p>修真历2844年，春。</p>
+            <p>那一年，莫芸刚认识容聿不久。对于一个在青云宗外门活得如一株背景板竹子的人来说，容聿的出现，不亚于竹间飞入朱鸿鸟，乏善可陈的日子变得鲜活起来。</p>
+            <p>那日是个难得的好天气。巳时刚过，莫芸的竹舍门前就站了个人。"小芸，"容聿带着笑意的声音隔着竹门传进来，"下山喝茶去不去？"</p>
+            <p>莫芸坐在案几前，听见熟悉的声音几乎要弹起来。他赶忙打开门，做贼一样往两边看了看："容聿师哥！你怎么来了？"</p>
+            <p>容聿手里不知从何处折了根桃枝，他用桃枝轻敲了下莫芸额头："说了带你去喝茶。山下开了家新茶楼，听说他们家青团做得极好。"</p>
+            <p>桃花扑面，莫芸那颗本就不怎么安分的心立刻活了。但他还是有些犹豫："可是哥哥说让我今天在房里练习引气入体。"</p>
+            <p>"楼师兄啊，"容聿拖长了声音，笑眯眯地看着他，"他这会儿应该听掌门训话去了，一时半会儿回不来。练气嘛，什么时候都能练，但今天日子这样好，错过岂非大大的可惜？"</p>
+            <p>于是，莫芸怀着一种小学生翘课般的喜悦，跟着容聿溜出了门。</p>
+
+            <div class="divider"></div>
+
+            <p>那家茶楼的确雅致。容聿订了个临窗的雅间，能看见镇子里熙熙攘攘的街景，不知比宗门热闹多少倍。说书先生正讲到"魔尊北朔夜袭仙盟"，引得满堂喝彩，莫芸也听得入神。</p>
+            <p>容聿把新添的茶点一一推到莫芸面前："你想去见魔尊么？"</p>
+            <p>莫芸大惊失色："什么？！"</p>
+            <p>容聿支着下巴："下回外事司出任务，带你去见见世面？"</p>
+            <p>莫芸连连摆手："不不不不……"</p>
+            <p>容聿失笑："你真信了？怪不得……"</p>
+            <p>意识到自己被逗，莫芸脸慢慢红了。他端起茶盏遮掩了一下脸："怪不得……什么？"</p>
+            <p>"你哥哥说你是个好骗的。还叫我少招惹你，若再让他知道我寻你开心，定要我好看。"</p>
+            <p>为了表示自己与容聿站在同一战线，他扭捏了一下还是说："师哥已经够好看了。"</p>
+            <p>容聿忍俊不禁："还真是好骗，几碟茶点就收买了。日后若有人拿一只纸蛐蛐哄你，你岂不是也要跟着走？"</p>
+            <p>莫芸想要反驳，但又想到自己认哥哥，可不就是因为打架被帮了一把么？但自己恐怕是不会被纸蛐蛐哄走的。毕竟……已经有了这样好的哥哥与师哥。</p>
+            <p>想到这里，他不说话了，羞赧地往茶盏后缩了缩。</p>
+
+            <div class="divider"></div>
+
+            <p>茶很清，点心也好，两人就这样在茶楼里消磨了整整两个时辰。容聿讲些内门或外事司的趣闻，莫芸听得一愣一愣，全然不记山门还有个姓楼的活阎王告诫过他少与容聿往来。</p>
+            <p>直到暮色四合，二人才一路回去山门。</p>
+            <p>"开心吗？"容聿走在他前头半步，替他拨开横在路上的树枝。</p>
+            <p>莫芸点头如捣蒜，他抬头看着容聿，眼睛亮亮的："谢谢容聿师哥。下次……等我攒够灵石，我也请你喝茶。"</p>
+            <p>外门弟子的月例很少，于是这话听起来有点心酸。但容聿只是笑笑，伸手在他头上揉了揉。</p>
+            <p>"好啊，那我可等着下次了。"</p>
+            <p>二人在内外门交界的岔路口分开，容聿往内门走，莫芸抱着他打包带回去的各式茶点，哼着不知名的调子往竹舍走。</p>
+
+            <div class="divider"></div>
+
+            <p>尘清景和，川静云闲。莫芸觉得今天真是个好日子。</p>
+            <p>直到他推开竹舍的门。</p>
+            <p>一个人坐在他的小案几前，拿着本《基础剑招入门》看。那人身影挺拔颀长，小案几被他一坐，立刻显得局促起来。</p>
+            <p>是楼宴宁。</p>
+            <p>莫芸被掐住脖子似的，歌声戛然而止："哥、哥哥。"</p>
+            <p>楼宴宁放下书："去哪了。"</p>
+            <p>声音平平淡淡，无甚起伏。但落在莫芸耳朵里，不亚于九天神雷——不渡劫也要挨雷劈吗？他磕磕巴巴道："我……我……"</p>
+            <p>楼宴宁其实没有生气。他只是今日事毕得早了些，想顺便看一看妹妹。推门发现人不在，就坐在椅子上等，一等就是两个时辰。他在脑子里过了一遍青云宗的治安情况，排除了妹妹遇险的可能，判定妹妹只是跑出去玩了，于是决定继续等。</p>
+            <p>对他来说这只是一件平常事，例行一问而已。</p>
+            <p>所以他看着莫芸那副快要哭出来的表情，有点不理解。只是问了一句"去哪了"，对方为什么是这副即将赴死的表情？</p>
+            <p>"我……"莫芸缩了缩脖子，"我随便走了走。"</p>
+            <p>楼宴宁静静看着他，目光扫过他手上提着的油纸包。</p>
+            <p>莫芸下意识把油纸包藏到身后。随即他又意识到，如此此地无银三百两，岂不是把哥哥当傻子。</p>
+            <p>欲哭无泪。莫芸只好竹筒倒豆子一样全招了："……和容聿师哥……去山下茶楼了。"</p>
+            <p>"容聿。"楼宴宁重复，终于有了点神色。</p>
+            <p>……死定了吧。楼宴宁上回都说过不要同容聿多往来，他这回不光往来了，还回来得满面春风，简直是顶风作案。</p>
+            <p>楼宴宁站了起来。他身形很高，站起来几乎挡住窗外透进来的光。莫芸感觉自己完全被笼罩在他的影子里了。</p>
+            <p>他一步一步走到莫芸面前，停下。</p>
+            <p>莫芸没敢抬头和他对视，只盯着他道袍的下摆和一尘不染的靴子。</p>
+            <p>然后，他感觉一双手伸了过来，楼宴宁托住了他的脸颊，捧起他的头，迫使他与自己对视。</p>
+            <p>太近了，莫芸能看到楼宴宁瞳仁里倒映着的自己的脸，和他垂落的墨睫。</p>
+            <p>忽然有点紧张，心跳也快得不正常。</p>
+            <p>他闭上眼，等着楼宴宁弹他的额头，训他一些"本事见长"之类的话。</p>
+            <p>一秒。三秒。五秒。十秒。</p>
+            <p>莫芸闭了一会，没等到下文。那点忐忑慢慢发酵，催生出更深的心虚。他试探着把眼睁开一线。</p>
+            <p>楼宴宁仍旧看着他。莫芸被看得心里发毛，这种悬而未决的恐惧实在折磨，他鼓起毕生所有的勇气："……哥哥？"</p>
+            <p>楼宴宁的视线终于从那种近乎入定的状态抽离出来。他看着莫芸惊惶的眼睛，视线下移，落在他脸颊上。</p>
+            <p>他动了动拇指，指腹蹭过莫芸的脸颊，在那块未完全褪去的婴儿肥上停了停。</p>
+            <p>然后，捏了一下。</p>
+            <p>莫芸眨了两下眼。</p>
+            <p>楼宴宁依旧面无表情，实打实用了点力气，又捏住那块软肉，往外扯了扯。</p>
+            <p>莫芸总算反应过来了，他睁大眼，瞳孔地震，只觉得脑子里有一万只鸭子在嘎嘎叫。</p>
+            <p>他感觉自己的脸应该烧起来了："哥哥……"他想说"别捏了"，但是声音都有点结巴。</p>
+            <p>楼宴宁失聪一般，甚至换了个角度戳了戳——脸颊陷下去一个小坑，又立马弹了回来。</p>
+            <p>楼宴宁的眉梢轻微地挑动了一下。他好像明白为什么养元堂那些小女孩总喜欢互相捏脸了。</p>
+            <p>"还去不去了。"他终于开口，声音依旧冷淡，只是捏着莫芸脸颊的手却没松开。</p>
+            <p>"不去了……"莫芸含糊不清回答。脸被捏着，说话都有点漏风。</p>
+            <p>这回楼宴宁总算松开他的脸。莫芸刚暗自松一口气，下一瞬楼宴宁便屈起手指，在他额头上敲了一下。</p>
+            <p>莫芸捂着额头，委屈地看他。</p>
+            <p>楼宴宁看着莫芸脸颊上留下的一道浅浅红印，低头看了看自己的手。</p>
+            <p>罢了。</p>
+            <p>他往桌上放了个锦囊，听声音像是装了些灵石："你也请他一回吧。莫要被他一顿茶钱收买。"</p>
+            <p>他拿起水影往门外走。走出两步，又偏过头来："明日再来看你。以后出门，要和我说。"</p>
+            <p>留下这句话，他的身影很快消失在竹径。</p>
+            <p>莫芸呆立在原地，被捏过的地方后知后觉开始发烫。他摸了摸那个位置——</p>
+            <p>哥哥的手好凉啊。</p>
+
+            <!-- 传讯符 1 -->
+            <div class="message">
+                <div class="message-content">
+                    茶钱。你若还嫌自己不够姿色，大可再拐他一回。
+                </div>
+                <div class="message-sender">—— 楼宴宁</div>
+            </div>
+
+            <!-- 传讯符 2 -->
+            <div class="message">
+                <div class="message-content">
+                    若他拐我，你又当如何？
+                </div>
+                <div class="message-sender">—— 容聿</div>
+            </div>
+
+            <!-- 后日谈 -->
+            <div class="epilogue">
+                <div class="epilogue-title">后日谈</div>
+                <p>次日，容聿不出所料收到一张字迹冷淡的传讯符，还有两颗灵石。</p>
+                <p>容聿看完，扶着额角笑了半日有余。他提笔回讯，当晚便没了下文。但莫芸真的很快来"拐"他了。</p>
+                <p>春和景明，少年在内门殿前不知蹲守了多久，见到他，便欢天喜地跑来面前：</p>
+                <p>"师哥！我们去喝杨梅饮罢！"</p>
+            </div>
+
+        </div>
+
+        <div class="footer">— 全文完 —</div>
+
     </div>
 
     <script>
         // 点击屏幕水波纹
         document.addEventListener('click', function(e) {
-            // 如果点击的是播放器，不触发屏幕水波纹
             if (e.target.closest('.player')) return;
             
             const ripple = document.createElement('div');
             ripple.className = 'ripple';
-            
-            // 创建SVG涟漪
             ripple.innerHTML = `
                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <path d="M50 10 C30 10, 10 30, 10 50 C10 70, 30 90, 50 90 C70 90, 90 70, 90 50 C90 30, 70 10, 50 10 Z" 
@@ -298,11 +535,9 @@
                           opacity="0.3"/>
                 </svg>
             `;
-            
             ripple.style.left = (e.clientX - 30) + 'px';
             ripple.style.top = (e.clientY - 30) + 'px';
             document.body.appendChild(ripple);
-            
             setTimeout(() => ripple.remove(), 600);
         });
 
@@ -312,7 +547,7 @@
         let isPlaying = false;
 
         function toggleMusic(event) {
-            event.stopPropagation(); // 阻止冒泡，避免触发屏幕水波纹
+            event.stopPropagation();
             
             if (isPlaying) {
                 music.pause();
@@ -325,7 +560,6 @@
             }
         }
 
-        // 音乐结束时重置
         music.addEventListener('ended', function() {
             player.classList.remove('playing');
             isPlaying = false;
