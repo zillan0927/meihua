@@ -18,13 +18,13 @@
 
         body {
             min-height: 100vh;
-            background: #F5F0E8;
             background-image: url('beijingtu.png');
-            background-size: cover;
+            background-size: 100% 100%;
             background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: '汇文明朝体', 'Noto Serif SC', 'SimSun', serif;
-            color: #3D3D3D;
+            font-family: "Huiwen-mincho", "汇文明朝体", "Noto Serif SC", "SimSun", serif;
+            color: #132a1d;
             line-height: 2;
             overflow-x: hidden;
             cursor: pointer;
@@ -37,7 +37,7 @@
             max-width: 680px;
             margin: 0 auto;
             padding: 60px 30px;
-            background: rgba(245, 240, 232, 0.85);
+            background: rgba(245, 240, 232, 0.88);
             min-height: 100vh;
             position: relative;
         }
@@ -224,15 +224,18 @@
             opacity: 0.8;
         }
 
-        /* 分割线 */
+        /* 分割线 - 用img标签 */
         .divider {
-            background-image: url('fengexian.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 80px;
+            text-align: center;
             margin: 30px 0;
-            opacity: 0.7;
+            opacity: 0.8;
+        }
+
+        .divider img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
         /* 标题区域 */
@@ -243,7 +246,7 @@
 
         .header h1 {
             font-size: 28px;
-            color: #3D3D3D;
+            color: #132a1d;
             font-weight: normal;
             margin-bottom: 10px;
             letter-spacing: 4px;
@@ -266,15 +269,6 @@
             margin-bottom: 1.2em;
         }
 
-        /* 章节标题 */
-        .chapter-title {
-            text-align: center;
-            font-size: 14px;
-            color: #6f8d76;
-            margin: 40px 0 20px;
-            letter-spacing: 2px;
-        }
-
         /* 前记 */
         .preface {
             background: rgba(111, 141, 118, 0.08);
@@ -282,7 +276,7 @@
             padding: 20px;
             margin: 30px 0;
             font-size: 14px;
-            color: #5a5a5a;
+            color: #132a1d;
             line-height: 1.8;
         }
 
@@ -291,40 +285,6 @@
             color: #6f8d76;
             margin-bottom: 10px;
             letter-spacing: 2px;
-        }
-
-        /* 传讯符 */
-        .message {
-            background: rgba(200, 180, 140, 0.15);
-            border: 1px solid rgba(200, 180, 140, 0.3);
-            padding: 25px;
-            margin: 30px 20px;
-            position: relative;
-            font-size: 15px;
-            line-height: 1.8;
-        }
-
-        .message::before {
-            content: '传讯符';
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            background: rgba(245, 240, 232, 0.9);
-            padding: 0 10px;
-            font-size: 12px;
-            color: #C45C5C;
-            letter-spacing: 2px;
-        }
-
-        .message-content {
-            color: #4a4a4a;
-        }
-
-        .message-sender {
-            text-align: right;
-            margin-top: 15px;
-            font-size: 13px;
-            color: #6f8d76;
         }
 
         /* 后日谈 */
@@ -336,10 +296,31 @@
 
         .epilogue-title {
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
             color: #6f8d76;
             margin-bottom: 30px;
             letter-spacing: 4px;
+        }
+
+        /* 传讯符 - 嵌入后日谈 */
+        .message {
+            margin: 25px 15px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .message-content {
+            font-size: 15px;
+            line-height: 2;
+            color: #132a1d;
+            text-indent: 0 !important;
+        }
+
+        .message-sender {
+            text-align: right;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #6f8d76;
         }
 
         /* 底部 */
@@ -391,7 +372,9 @@
         </div>
 
         <!-- 分割线 -->
-        <div class="divider"></div>
+        <div class="divider">
+            <img src="fengexian.png" alt="分割线">
+        </div>
 
         <!-- 正文 -->
         <div class="content">
@@ -404,7 +387,10 @@
             <p>"楼师兄啊，"容聿拖长了声音，笑眯眯地看着他，"他这会儿应该听掌门训话去了，一时半会儿回不来。练气嘛，什么时候都能练，但今天日子这样好，错过岂非大大的可惜？"</p>
             <p>于是，莫芸怀着一种小学生翘课般的喜悦，跟着容聿溜出了门。</p>
 
-            <div class="divider"></div>
+            <!-- 分割线 -->
+            <div class="divider">
+                <img src="fengexian.png" alt="分割线">
+            </div>
 
             <p>那家茶楼的确雅致。容聿订了个临窗的雅间，能看见镇子里熙熙攘攘的街景，不知比宗门热闹多少倍。说书先生正讲到"魔尊北朔夜袭仙盟"，引得满堂喝彩，莫芸也听得入神。</p>
             <p>容聿把新添的茶点一一推到莫芸面前："你想去见魔尊么？"</p>
@@ -419,7 +405,10 @@
             <p>莫芸想要反驳，但又想到自己认哥哥，可不就是因为打架被帮了一把么？但自己恐怕是不会被纸蛐蛐哄走的。毕竟……已经有了这样好的哥哥与师哥。</p>
             <p>想到这里，他不说话了，羞赧地往茶盏后缩了缩。</p>
 
-            <div class="divider"></div>
+            <!-- 分割线 -->
+            <div class="divider">
+                <img src="fengexian.png" alt="分割线">
+            </div>
 
             <p>茶很清，点心也好，两人就这样在茶楼里消磨了整整两个时辰。容聿讲些内门或外事司的趣闻，莫芸听得一愣一愣，全然不记山门还有个姓楼的活阎王告诫过他少与容聿往来。</p>
             <p>直到暮色四合，二人才一路回去山门。</p>
@@ -429,7 +418,10 @@
             <p>"好啊，那我可等着下次了。"</p>
             <p>二人在内外门交界的岔路口分开，容聿往内门走，莫芸抱着他打包带回去的各式茶点，哼着不知名的调子往竹舍走。</p>
 
-            <div class="divider"></div>
+            <!-- 分割线 -->
+            <div class="divider">
+                <img src="fengexian.png" alt="分割线">
+            </div>
 
             <p>尘清景和，川静云闲。莫芸觉得今天真是个好日子。</p>
             <p>直到他推开竹舍的门。</p>
@@ -478,27 +470,31 @@
             <p>莫芸呆立在原地，被捏过的地方后知后觉开始发烫。他摸了摸那个位置——</p>
             <p>哥哥的手好凉啊。</p>
 
-            <!-- 传讯符 1 -->
-            <div class="message">
-                <div class="message-content">
-                    茶钱。你若还嫌自己不够姿色，大可再拐他一回。
-                </div>
-                <div class="message-sender">—— 楼宴宁</div>
-            </div>
-
-            <!-- 传讯符 2 -->
-            <div class="message">
-                <div class="message-content">
-                    若他拐我，你又当如何？
-                </div>
-                <div class="message-sender">—— 容聿</div>
-            </div>
-
             <!-- 后日谈 -->
             <div class="epilogue">
                 <div class="epilogue-title">后日谈</div>
+                
                 <p>次日，容聿不出所料收到一张字迹冷淡的传讯符，还有两颗灵石。</p>
-                <p>容聿看完，扶着额角笑了半日有余。他提笔回讯，当晚便没了下文。但莫芸真的很快来"拐"他了。</p>
+                
+                <!-- 传讯符1 -->
+                <div class="message">
+                    <div class="message-content">
+                        <p>『茶钱。你若还嫌自己不够姿色，大可再拐他一回。』</p>
+                    </div>
+                    <div class="message-sender">—— 楼宴宁</div>
+                </div>
+
+                <p>容聿看完，扶着额角笑了半日有余。他提笔回讯：</p>
+
+                <!-- 传讯符2 -->
+                <div class="message">
+                    <div class="message-content">
+                        <p>『若他拐我，你又当如何？』</p>
+                    </div>
+                    <div class="message-smessage-sender">—— 容聿</div>
+                </div>
+
+                <p>传讯符飞回去，当晚便没了下文。但莫芸真的很快来"拐"他了。</p>
                 <p>春和景明，少年在内门殿前不知蹲守了多久，见到他，便欢天喜地跑来面前：</p>
                 <p>"师哥！我们去喝杨梅饮罢！"</p>
             </div>
