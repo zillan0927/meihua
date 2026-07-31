@@ -6,10 +6,10 @@
     <title>【宴芸】脸与心孰软</title>
     
     <style>
-        /* 本地字体 - 用英文文件名，GitHub Pages 不会出错 */
+        /* 字体托管在 GitHub Release */
         @font-face {
             font-family: 'Xinhuo';
-            src: url('xinhuo.woff2') format('woff2');
+            src: url('https://github.com/zillan0927/meihua/releases/latest/download/xinhuo.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -33,7 +33,7 @@
             user-select: none;
         }
 
-        /* 背景图层 - 单独放，不参与 mask */
+        /* 背景图层 */
         .bg-layer {
             position: fixed;
             top: 0;
@@ -47,29 +47,28 @@
             z-index: -1;
         }
 
-        /* 内容容器 - 渐隐遮罩 */
+        /* 内容容器 */
         .container {
             max-width: 680px;
             margin: 0 auto;
             padding: 64px 30px;
             min-height: 100vh;
             position: relative;
-            
-            /* 顶部和底部渐隐 */
-            -webkit-mask-image: linear-gradient(
-                to bottom,
-                transparent 0px,
-                black 64px,
-                black calc(100% - 64px),
-                transparent 100%
-            );
-            mask-image: linear-gradient(
-                to bottom,
-                transparent 0px,
-                black 64px,
-                black calc(100% - 64px),
-                transparent 100%
-            );
+        }
+
+        /* 渐隐覆盖层 - jianyin.png 盖在最上面 */
+        .fade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            background-image: url('jianyin.png');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         /* 点击水波纹效果 */
@@ -405,9 +404,9 @@
         <!-- 正文 -->
         <div class="content">
             <p>修真历2844年，春。</p>
-            <p>那一年，莫芸刚认识容聿不久。<p>
+            <p>那一年，莫芸刚认识容聿不久。</p>
             <p>对于一个在青云宗外门活得如一株背景板竹子的人来说，容聿的出现，不亚于竹间飞入朱鸿鸟，乏善可陈的日子变得鲜活起来。</p>
-            <p>那日是个难得的好天气。<p>
+            <p>那日是个难得的好天气。</p>
             <p>巳时刚过，莫芸的竹舍门前就站了个人。"小芸，"容聿带着笑意的声音隔着竹门传进来，"下山喝茶去不去？"</p>
             <p>莫芸坐在案几前，听见熟悉的声音几乎要弹起来。他赶忙打开门，做贼一样往两边看了看："容聿师哥！你怎么来了？"</p>
             <p>容聿手里不知从何处折了根桃枝，他用桃枝轻敲了下莫芸额头："说了带你去喝茶。山下开了家新茶楼，听说他们家青团做得极好。"</p>
@@ -432,10 +431,10 @@
             <p>容聿忍俊不禁："还真是好骗，几碟茶点就收买了。日后若有人拿一只纸蛐蛐哄你，你岂不是也要跟着走？"</p>
             <p>莫芸想要反驳，但又想到自己认哥哥，可不就是因为打架被帮了一把么？但自己恐怕是不会被纸蛐蛐哄走的。毕竟……已经有了这样好的哥哥与师哥。</p>
             <p>想到这里，他不说话了，羞赧地往茶盏后缩了缩。</p>
-            <p>"引气入体如何？"容聿又问。<p>
-            <p>这回莫芸没有立刻答了。他慢慢趴在桌上，把目光挪到窗外，片刻后才低声答："我总是练不好……是不是很没用啊师哥？哥哥都元婴期了，我还在练气。"<p>
-            <p>"我也这样想过。"容聿支着额角，闲闲看他，"应该说，谁把自己与楼师兄放在一起比，都会这样想。"说到这里，他似乎有点咬牙切齿的意味，"他这种人，疑似投胎前已先修过一世。"<p>
-            <p>这一句太坏，莫芸弯着眼笑了半天。<p>
+            <p>"引气入体如何？"容聿又问。</p>
+            <p>这回莫芸没有立刻答了。他慢慢趴在桌上，把目光挪到窗外，片刻后才低声答："我总是练不好……是不是很没用啊师哥？哥哥都元婴期了，我还在练气。"</p>
+            <p>"我也这样想过。"容聿支着额角，闲闲看他，"应该说，谁把自己与楼师兄放在一起比，都会这样想。"说到这里，他似乎有点咬牙切齿的意味，"他这种人，疑似投胎前已先修过一世。"</p>
+            <p>这一句太坏，莫芸弯着眼笑了半天。</p>
                 
             <!-- 分割线 -->
             <div class="divider">
@@ -511,8 +510,8 @@
                 <!-- 传讯符1 -->
                 <div class="message">
                     <div class="message-content">
-                        <p>『茶钱。<p>
-                        <p> 你若还嫌自己不够姿色，<p>
+                        <p>『茶钱。</p>
+                        <p> 你若还嫌自己不够姿色，</p>
                         <p> 大可再拐他一回。』</p>
                     </div>
                     <div class="message-sender">—— 楼宴宁</div>
@@ -538,6 +537,9 @@
         <div class="footer">— 全文完 —</div>
 
     </div>
+
+    <!-- 渐隐覆盖层 - jianyin.png 盖在最上面 -->
+    <div class="fade-overlay"></div>
 
     <script>
         // 点击屏幕水波纹
