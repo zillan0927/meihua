@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>【宴芸】脸与心孰软</title>
     
-    <!-- 汇文明朝体 -->
-    <link rel="stylesheet" href="https://cn-font.claude-code-best.win/packages/hwmct/dist/汇文明朝体/result.css">
-    
     <style>
+        /* 本地字体 */
+        @font-face {
+            font-family: 'Xinhuo';
+            src: url('中华薪火体.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +29,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: "Huiwen-mincho", "汇文明朝体", "Noto Serif SC", "SimSun", serif;
+            font-family: 'Xinhuo', "SimSun", serif;
             color: #132a1d;
             line-height: 1.8;
             overflow-x: hidden;
@@ -32,14 +38,30 @@
             user-select: none;
         }
 
-        /* 内容容器 - 完全透明 */
+        /* 内容容器 - 渐隐遮罩 */
         .container {
             max-width: 680px;
             margin: 0 auto;
-            padding: 60px 30px;
+            padding: 64px 30px;
             background: transparent;
             min-height: 100vh;
             position: relative;
+            
+            /* 顶部和底部渐隐 */
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                transparent 0px,
+                black 64px,
+                black calc(100% - 64px),
+                transparent 100%
+            );
+            mask-image: linear-gradient(
+                to bottom,
+                transparent 0px,
+                black 64px,
+                black calc(100% - 64px),
+                transparent 100%
+            );
         }
 
         /* 点击水波纹效果 */
@@ -78,32 +100,20 @@
             position: relative;
         }
 
-        /* 装饰线条 */
+        /* 羽化线条 */
         .decoration-line {
-            width: 60px;
+            flex: 1;
+            max-width: 200px;
             height: 1px;
-            background: #6f8d76;
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                #6f8d76 30%,
+                #6f8d76 70%,
+                transparent 100%
+            );
             position: relative;
             opacity: 0.6;
-        }
-
-        .decoration-line::before {
-            content: '';
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: #6f8d76;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .decoration-line.left::before {
-            right: 0;
-        }
-
-        .decoration-line.right::before {
-            left: 0;
         }
 
         /* 水波纹播放器 */
@@ -112,6 +122,7 @@
             width: 50px;
             height: 50px;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .player-circle {
@@ -218,7 +229,7 @@
         /* 音乐信息 */
         .music-info {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-size: 12px;
             color: #6f8d76;
             opacity: 0.8;
@@ -241,7 +252,7 @@
         /* 标题区域 */
         .header {
             text-align: center;
-            padding: 20px 0 40px;
+            padding: 20px 0 20px;
         }
 
         .header h1 {
@@ -258,7 +269,7 @@
             opacity: 0.8;
         }
 
-        /* 文章内容 - 加粗，行距缩小，颜色#132a1d */
+        /* 文章内容 */
         .content {
             font-size: 16px;
             text-align: justify;
@@ -271,12 +282,12 @@
             margin-bottom: 1em;
         }
 
-        /* 前记 */
+        /* 前记 - 往上调 */
         .preface {
             background: rgba(111, 141, 118, 0.08);
             border-left: 3px solid #6f8d76;
             padding: 20px;
-            margin: 30px 0;
+            margin: 10px 0 30px;
             font-size: 14px;
             color: #132a1d;
             line-height: 1.8;
@@ -305,7 +316,7 @@
             letter-spacing: 4px;
         }
 
-        /* 传讯符 - 嵌入后日谈 */
+        /* 传讯符 */
         .message {
             margin: 25px 15px;
             padding: 20px;
@@ -324,7 +335,7 @@
             text-align: right;
             margin-top: 15px;
             font-size: 13px;
-            color: #6f8d76;
+            color: #132a1d;
         }
 
         /* 底部 */
@@ -332,7 +343,7 @@
             text-align: center;
             padding: 60px 0 30px;
             font-size: 12px;
-            color: #999;
+            color: #132a1d;
             opacity: 0.6;
         }
     </style>
@@ -343,7 +354,7 @@
 
         <!-- 播放器 -->
         <div class="player-container">
-            <div class="decoration-line left"></div>
+            <div class="decoration-line"></div>
             
             <div class="player" id="player" onclick="toggleMusic(event)">
                 <div class="ripple-ring"></div>
@@ -355,7 +366,7 @@
                 </div>
             </div>
             
-            <div class="decoration-line right"></div>
+            <div class="decoration-line"></div>
         </div>
         
         <div class="music-info">华年（二胡版）</div>
@@ -383,8 +394,10 @@
         <!-- 正文 -->
         <div class="content">
             <p>修真历2844年，春。</p>
-            <p>那一年，莫芸刚认识容聿不久。对于一个在青云宗外门活得如一株背景板竹子的人来说，容聿的出现，不亚于竹间飞入朱鸿鸟，乏善可陈的日子变得鲜活起来。</p>
-            <p>那日是个难得的好天气。巳时刚过，莫芸的竹舍门前就站了个人。"小芸，"容聿带着笑意的声音隔着竹门传进来，"下山喝茶去不去？"</p>
+            <p>那一年，莫芸刚认识容聿不久。<p>
+            <p>对于一个在青云宗外门活得如一株背景板竹子的人来说，容聿的出现，不亚于竹间飞入朱鸿鸟，乏善可陈的日子变得鲜活起来。</p>
+            <p>那日是个难得的好天气。<p>
+            <p>巳时刚过，莫芸的竹舍门前就站了个人。"小芸，"容聿带着笑意的声音隔着竹门传进来，"下山喝茶去不去？"</p>
             <p>莫芸坐在案几前，听见熟悉的声音几乎要弹起来。他赶忙打开门，做贼一样往两边看了看："容聿师哥！你怎么来了？"</p>
             <p>容聿手里不知从何处折了根桃枝，他用桃枝轻敲了下莫芸额头："说了带你去喝茶。山下开了家新茶楼，听说他们家青团做得极好。"</p>
             <p>桃花扑面，莫芸那颗本就不怎么安分的心立刻活了。但他还是有些犹豫："可是哥哥说让我今天在房里练习引气入体。"</p>
@@ -408,25 +421,29 @@
             <p>容聿忍俊不禁："还真是好骗，几碟茶点就收买了。日后若有人拿一只纸蛐蛐哄你，你岂不是也要跟着走？"</p>
             <p>莫芸想要反驳，但又想到自己认哥哥，可不就是因为打架被帮了一把么？但自己恐怕是不会被纸蛐蛐哄走的。毕竟……已经有了这样好的哥哥与师哥。</p>
             <p>想到这里，他不说话了，羞赧地往茶盏后缩了缩。</p>
-
+            <p>“引气入体如何？”容聿又问。<p>
+            <p>这回莫芸没有立刻答了。他慢慢趴在桌上，把目光挪到窗外，片刻后才低声答：“我总是练不好……是不是很没用啊师哥？哥哥都元婴期了，我还在练气。”<p>
+            <p>“我也这样想过。”容聿支着额角，闲闲看他，“应该说，谁把自己与楼师兄放在一起比，都会这样想。”说到这里，他似乎有点咬牙切齿的意味，“他这种人，疑似投胎前已先修过一世。”<p>
+            <p>这一句太坏，莫芸弯着眼笑了半天。<p>
+                
             <!-- 分割线 -->
             <div class="divider">
                 <img src="fengexian.png" alt="分割线">
             </div>
-
+            
             <p>茶很清，点心也好，两人就这样在茶楼里消磨了整整两个时辰。容聿讲些内门或外事司的趣闻，莫芸听得一愣一愣，全然不记山门还有个姓楼的活阎王告诫过他少与容聿往来。</p>
             <p>直到暮色四合，二人才一路回去山门。</p>
             <p>"开心吗？"容聿走在他前头半步，替他拨开横在路上的树枝。</p>
             <p>莫芸点头如捣蒜，他抬头看着容聿，眼睛亮亮的："谢谢容聿师哥。下次……等我攒够灵石，我也请你喝茶。"</p>
             <p>外门弟子的月例很少，于是这话听起来有点心酸。但容聿只是笑笑，伸手在他头上揉了揉。</p>
             <p>"好啊，那我可等着下次了。"</p>
-            <p>二人在内外门交界的岔路口分开，容聿往内门走，莫芸抱着他打包带回去的各式茶点，哼着不知名的调子往竹舍走。</p>
-
+            
             <!-- 分割线 -->
             <div class="divider">
                 <img src="fengexian.png" alt="分割线">
             </div>
-
+            
+            <p>二人在内外门交界的岔路口分开，容聿往内门走，莫芸抱着他打包带回去的各式茶点，哼着不知名的调子往竹舍走。</p>
             <p>尘清景和，川静云闲。莫芸觉得今天真是个好日子。</p>
             <p>直到他推开竹舍的门。</p>
             <p>一个人坐在他的小案几前，拿着本《基础剑招入门》看。那人身影挺拔颀长，小案几被他一坐，立刻显得局促起来。</p>
@@ -472,7 +489,7 @@
             <p>他拿起水影往门外走。走出两步，又偏过头来："明日再来看你。以后出门，要和我说。"</p>
             <p>留下这句话，他的身影很快消失在竹径。</p>
             <p>莫芸呆立在原地，被捏过的地方后知后觉开始发烫。他摸了摸那个位置——</p>
-            <p>哥哥的手好凉啊。</p>
+            <p>哥哥的手，好凉啊。</p>
 
             <!-- 后日谈 -->
             <div class="epilogue">
@@ -483,7 +500,9 @@
                 <!-- 传讯符1 -->
                 <div class="message">
                     <div class="message-content">
-                        <p>『茶钱。你若还嫌自己不够姿色，大可再拐他一回。』</p>
+                        <p>『茶钱。<p>
+                        <p> 你若还嫌自己不够姿色，<p>
+                        <p> 大可再拐他一回。』</p>
                     </div>
                     <div class="message-sender">—— 楼宴宁</div>
                 </div>
@@ -545,6 +564,9 @@
         const player = document.getElementById('player');
         const music = document.getElementById('music');
         let isPlaying = false;
+
+        // 单曲循环
+        music.loop = true;
 
         function toggleMusic(event) {
             event.stopPropagation();
