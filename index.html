@@ -25,19 +25,19 @@
             background-attachment: fixed;
             font-family: "Huiwen-mincho", "汇文明朝体", "Noto Serif SC", "SimSun", serif;
             color: #132a1d;
-            line-height: 2;
+            line-height: 1.8;
             overflow-x: hidden;
             cursor: pointer;
             -webkit-touch-callout: none;
             user-select: none;
         }
 
-        /* 内容容器 - 半透明背景让文字可读 */
+        /* 内容容器 - 完全透明 */
         .container {
             max-width: 680px;
             margin: 0 auto;
             padding: 60px 30px;
-            background: rgba(245, 240, 232, 0.88);
+            background: transparent;
             min-height: 100vh;
             position: relative;
         }
@@ -258,15 +258,17 @@
             opacity: 0.8;
         }
 
-        /* 文章内容 */
+        /* 文章内容 - 加粗，行距缩小，颜色#132a1d */
         .content {
             font-size: 16px;
             text-align: justify;
+            color: #132a1d;
+            font-weight: 500;
         }
 
         .content p {
             text-indent: 2em;
-            margin-bottom: 1.2em;
+            margin-bottom: 1em;
         }
 
         /* 前记 */
@@ -278,6 +280,7 @@
             font-size: 14px;
             color: #132a1d;
             line-height: 1.8;
+            font-weight: 500;
         }
 
         .preface-title {
@@ -311,9 +314,10 @@
 
         .message-content {
             font-size: 15px;
-            line-height: 2;
+            line-height: 1.8;
             color: #132a1d;
             text-indent: 0 !important;
+            font-weight: 500;
         }
 
         .message-sender {
@@ -491,7 +495,7 @@
                     <div class="message-content">
                         <p>『若他拐我，你又当如何？』</p>
                     </div>
-                    <div class="message-smessage-sender">—— 容聿</div>
+                    <div class="message-sender">—— 容聿</div>
                 </div>
 
                 <p>传讯符飞回去，当晚便没了下文。但莫芸真的很快来"拐"他了。</p>
