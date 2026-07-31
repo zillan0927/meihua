@@ -6,10 +6,10 @@
     <title>【宴芸】脸与心孰软</title>
     
     <style>
-        /* 本地字体 */
+        /* 本地字体 - 用英文文件名，GitHub Pages 不会出错 */
         @font-face {
             font-family: 'Xinhuo';
-            src: url('中华薪火体.woff2') format('woff2');
+            src: url('xinhuo.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -24,11 +24,6 @@
 
         body {
             min-height: 100vh;
-            background-image: url('beijingtu.png');
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
             font-family: 'Xinhuo', "SimSun", serif;
             color: #132a1d;
             line-height: 1.8;
@@ -38,12 +33,25 @@
             user-select: none;
         }
 
+        /* 背景图层 - 单独放，不参与 mask */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('beijingtu.png');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
         /* 内容容器 - 渐隐遮罩 */
         .container {
             max-width: 680px;
             margin: 0 auto;
             padding: 64px 30px;
-            background: transparent;
             min-height: 100vh;
             position: relative;
             
@@ -51,15 +59,15 @@
             -webkit-mask-image: linear-gradient(
                 to bottom,
                 transparent 0px,
-                black 64px,
-                black calc(100% - 64px),
+                black 80px,
+                black calc(100% - 80px),
                 transparent 100%
             );
             mask-image: linear-gradient(
                 to bottom,
                 transparent 0px,
-                black 64px,
-                black calc(100% - 64px),
+                black 80px,
+                black calc(100% - 80px),
                 transparent 100%
             );
         }
@@ -282,7 +290,7 @@
             margin-bottom: 1em;
         }
 
-        /* 前记 - 往上调 */
+        /* 前记 */
         .preface {
             background: rgba(111, 141, 118, 0.08);
             border-left: 3px solid #6f8d76;
@@ -350,6 +358,9 @@
 </head>
 <body>
 
+    <!-- 背景图层单独放 -->
+    <div class="bg-layer"></div>
+
     <div class="container">
 
         <!-- 播放器 -->
@@ -372,7 +383,7 @@
         <div class="music-info">华年（二胡版）</div>
 
         <!-- 音频 -->
-        <audio id="music" src="华年(二胡版).mp3" preload="metadata"></audio>
+        <audio id="music" src="%E5%8D%8E%E5%B9%B4%28%E4%BA%8C%E8%83%A1%E7%89%88%29.mp3" preload="metadata"></audio>
 
         <!-- 标题 -->
         <div class="header">
@@ -421,9 +432,9 @@
             <p>容聿忍俊不禁："还真是好骗，几碟茶点就收买了。日后若有人拿一只纸蛐蛐哄你，你岂不是也要跟着走？"</p>
             <p>莫芸想要反驳，但又想到自己认哥哥，可不就是因为打架被帮了一把么？但自己恐怕是不会被纸蛐蛐哄走的。毕竟……已经有了这样好的哥哥与师哥。</p>
             <p>想到这里，他不说话了，羞赧地往茶盏后缩了缩。</p>
-            <p>“引气入体如何？”容聿又问。<p>
-            <p>这回莫芸没有立刻答了。他慢慢趴在桌上，把目光挪到窗外，片刻后才低声答：“我总是练不好……是不是很没用啊师哥？哥哥都元婴期了，我还在练气。”<p>
-            <p>“我也这样想过。”容聿支着额角，闲闲看他，“应该说，谁把自己与楼师兄放在一起比，都会这样想。”说到这里，他似乎有点咬牙切齿的意味，“他这种人，疑似投胎前已先修过一世。”<p>
+            <p>"引气入体如何？"容聿又问。<p>
+            <p>这回莫芸没有立刻答了。他慢慢趴在桌上，把目光挪到窗外，片刻后才低声答："我总是练不好……是不是很没用啊师哥？哥哥都元婴期了，我还在练气。"<p>
+            <p>"我也这样想过。"容聿支着额角，闲闲看他，"应该说，谁把自己与楼师兄放在一起比，都会这样想。"说到这里，他似乎有点咬牙切齿的意味，"他这种人，疑似投胎前已先修过一世。"<p>
             <p>这一句太坏，莫芸弯着眼笑了半天。<p>
                 
             <!-- 分割线 -->
