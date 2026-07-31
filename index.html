@@ -1,11 +1,302 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的美化页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【宴芸】脸与心孰软</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #F5F0E8;
+            overflow-x: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* 点击水波纹效果 */
+        .ripple {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(122, 158, 126, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 1s ease-out forwards;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* 播放器容器 */
+        .player-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        /* 装饰线条 */
+        .decoration-line {
+            width: 80px;
+            height: 1px;
+            background: #7A9E7E;
+            position: relative;
+        }
+
+        .decoration-line::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #7A9E7E;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .decoration-line.left::before {
+            right: 0;
+        }
+
+        .decoration-line.right::before {
+            left: 0;
+        }
+
+        /* 水波纹播放器 */
+        .player {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+        }
+
+        .player-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #7A9E7E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(245, 240, 232, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .player:hover .player-circle {
+            border-color: #C45C5C;
+            transform: scale(1.05);
+        }
+
+        /* 水波纹动画 */
+        .wave {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(122, 158, 126, 0.4);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        .player.playing .wave {
+            animation: wave-animation 2s ease-out infinite;
+        }
+
+        .player.playing .wave:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .player.playing .wave:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes wave-animation {
+            0% {
+                width: 80px;
+                height: 80px;
+                opacity: 0.6;
+            }
+            100% {
+                width: 160px;
+                height: 160px;
+                opacity: 0;
+            }
+        }
+
+        /* 播放按钮图标 */
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-left: 18px solid #7A9E7E;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .player:hover .play-icon {
+            border-left-color: #C45C5C;
+        }
+
+        .pause-icon {
+            display: none;
+            width: 20px;
+            height: 24px;
+            position: relative;
+        }
+
+        .pause-icon::before,
+        .pause-icon::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 100%;
+            background: #7A9E7E;
+            top: 0;
+        }
+
+        .pause-icon::before {
+            left: 4px;
+        }
+
+        .pause-icon::after {
+            right: 4px;
+        }
+
+        .player.playing .play-icon {
+            display: none;
+        }
+
+        .player.playing .pause-icon {
+            display: block;
+        }
+
+        /* 音乐信息 */
+        .music-info {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #7A9E7E;
+            font-family: "SimSun", "宋体", serif;
+        }
+
+        /* 示例文字区域 */
+        .content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            font-family: "SimSun", "宋体", serif;
+            line-height: 2;
+            color: #3D3D3D;
+            font-size: 16px;
+        }
+
+        .content h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #3D3D3D;
+            font-weight: normal;
+        }
+
+        .content .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #7A9E7E;
+            margin-bottom: 40px;
+        }
+
+        .content p {
+            text-indent: 2em;
+            margin-bottom: 1em;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>我的网页上线啦！</p>
+
+    <!-- 播放器 -->
+    <div class="player-container">
+        <div class="decoration-line left"></div>
+        
+        <div class="player" id="player" onclick="toggleMusic()">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="player-circle">
+                <div class="play-icon"></div>
+                <div class="pause-icon"></div>
+            </div>
+        </div>
+        
+        <div class="decoration-line right"></div>
+    </div>
+    
+    <div class="music-info">华年（二胡版）</div>
+
+    <!-- 音频 -->
+    <audio id="music" src="华年(二胡版).mp3" preload="metadata"></audio>
+
+    <!-- 示例内容 -->
+    <div class="content">
+        <h1>【宴芸】脸与心孰软</h1>
+        <div class="subtitle">记一次失败的教育</div>
+        <p>家长教育小孩，心软是大忌。但……不是我心软，是他脸软。</p>
+        <p>那一年，莫芸刚认识容聿不久。对于一个在青云宗外门活得如一株背景板竹子的人来说，容聿的出现，不亚于竹间飞入朱鸿鸟，乏善可陈的日子变得鲜活起来。</p>
+    </div>
+
+    <script>
+        // 点击屏幕水波纹
+        document.addEventListener('click', function(e) {
+            // 如果点击的是播放器，不触发屏幕水波纹
+            if (e.target.closest('.player')) return;
+            
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.width = '100px';
+            ripple.style.height = '100px';
+            ripple.style.left = (e.clientX - 50) + 'px';
+            ripple.style.top = (e.clientY - 50) + 'px';
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 1000);
+        });
+
+        // 播放器控制
+        const player = document.getElementById('player');
+        const music = document.getElementById('music');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                player.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                music.play().catch(e => console.log('播放失败:', e));
+                player.classList.add('playing');
+                isPlaying = true;
+            }
+        }
+
+        // 音乐结束时重置
+        music.addEventListener('ended', function() {
+            player.classList.remove('playing');
+            isPlaying = false;
+        });
+    </script>
+
 </body>
 </html>
